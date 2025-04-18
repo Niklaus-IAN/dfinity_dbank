@@ -10,7 +10,7 @@ import Float "mo:base/Float";
 
 actor DBank {
   stable var currentValue: Float = 300;
-  // currentValue := 300;
+  currentValue := 300;
   Debug.print(debug_show(currentValue));
 
   let _id = 2345782475937439;
@@ -19,7 +19,7 @@ actor DBank {
   var _nanoSec = Time.now(); 
 
   stable var _startTime = _nanoSec;
-  // _startTime := Time.now();
+  _startTime := Time.now();
   Debug.print(debug_show(_startTime));
 
   public query func now() : async time {
@@ -80,6 +80,7 @@ actor DBank {
   // Query Function and Update Function
 
   public query func checkBalance() : async Float {
+    Debug.print("The current value is: "#debug_show(currentValue));
     return currentValue;
   };
 
@@ -100,12 +101,14 @@ actor DBank {
     return timeSec;
   };
 
-  public query func compounding() : async Float {
+  public func compounding() : async Float {
+    // Debug.print("Running");
     let _currentTime = Time.now();
     let _timeElapsedNS = _currentTime - _startTime;
     let _timeElapsedS = _timeElapsedNS / 1000000000;
     currentValue := currentValue * (1.01 ** Float.fromInt(_timeElapsedS));
     _startTime := _currentTime;
+    // Debug.print(debug_show(currentValue));
     return currentValue;
   }
   

@@ -70,9 +70,12 @@ function App() {
       await hello_backend.topUp(inputAmount);
     }
 
-    if (outputAmount != '') {
+    if (document.getElementById("withdrawal-amount").value != 0) {
       await hello_backend.withdrawal(outputAmount);
     }
+
+
+    await hello_backend.compounding();
     
 
     fetchBalance();
